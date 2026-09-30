@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Second Serving · Leftover event food at Cornell Tech</title>
+  <meta name="description" content="Find leftover event food on campus before it's thrown out.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥡</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#board">Skip to available food</a>
+
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <div>
+        <h1 class="wordmark">Second Serving</h1>
+        <p class="tagline">Leftover event food at Cornell Tech, claimed before it's thrown out.</p>
+      </div>
+      <div class="masthead-actions">
+        <a class="link" href="dashboard.html">Metrics</a>
+        <button class="btn btn-primary" id="open-post" type="button">Post leftovers</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <p class="mode-note" id="mode-note" hidden></p>
+
+    <div class="toolbar">
+      <fieldset class="filters" id="filters">
+        <legend>Show only</legend>
+        <label class="chip"><input type="checkbox" value="vegetarian"> Vegetarian</label>
+        <label class="chip"><input type="checkbox" value="vegan"> Vegan</label>
+        <label class="chip"><input type="checkbox" value="halal"> Halal</label>
+        <label class="chip"><input type="checkbox" value="gluten-free"> Gluten-free</label>
+      </fieldset>
+      <p class="count" id="count" aria-live="polite"></p>
+    </div>
+
+    <section id="board" class="rail" aria-label="Available food, soonest to expire first">
+      <div class="board" id="tickets"></div>
+    </section>
+  </main>
+
+  <!-- Post leftovers -->
+  <dialog id="post-dialog" aria-labelledby="post-title">
+    <form method="dialog" id="post-form" class="sheet">
+      <h2 id="post-title">Post leftovers</h2>
+      <p class="hint">Students nearby will see this right away.</p>
+
+      <label>What food is left?
+        <input name="title" required maxlength="80" placeholder="e.g. Veggie wraps and fruit">
+      </label>
+      <label>Where can people pick it up?
+        <input name="location" required maxlength="80" placeholder="e.g. Bloomberg Center, 2nd floor lounge">
+      </label>
+      <div class="row">
+        <label>About how many portions?
+          <input name="portions" type="number" min="1" max="500" value="10" required>
+        </label>
+        <label>Available for
+          <select name="minutes">
+            <option value="30">30 minutes</option>
+            <option value="60" selected>1 hour</option>
+            <option value="90">90 minutes</option>
+            <option value="120">2 hours</option>
+          </select>
+        </label>
+      </div>
+      <fieldset class="checks">
+        <legend>Dietary info</legend>
+        <label><input type="checkbox" name="dietary" value="vegetarian"> Vegetarian</label>
+        <label><input type="checkbox" name="dietary" value="vegan"> Vegan</label>
+        <label><input type="checkbox" name="dietary" value="halal"> Halal</label>
+        <label><input type="checkbox" name="dietary" value="gluten-free"> Gluten-free</label>
+      </fieldset>
+      <label>Notes <span class="optional">(optional)</span>
+        <textarea name="notes" maxlength="280" rows="2" placeholder="Allergens, where exactly, bring a container…"></textarea>
+      </label>
+      <p class="form-error" id="post-error" role="alert"></p>
+      <div class="sheet-actions">
+        <button class="btn" value="cancel" formnovalidate type="submit">Cancel</button>
+        <button class="btn btn-primary" id="post-submit" value="post" type="submit">Post leftovers</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- First-time name prompt -->
+  <dialog id="name-dialog" aria-labelledby="name-title">
+    <form method="dialog" id="name-form" class="sheet">
+      <h2 id="name-title">What should we call you?</h2>
+      <p class="hint">Organizers see this name when you claim food.</p>
+      <label>Your name
+        <input name="name" required maxlength="40" autocomplete="given-name">
+      </label>
+      <div class="sheet-actions">
+        <button class="btn" value="cancel" formnovalidate type="submit">Cancel</button>
+        <button class="btn btn-primary" value="save" type="submit">Continue</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="store.js"></script>
+  <script src="tracking.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Second Serving · Metrics</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <div>
+        <h1 class="wordmark">Metrics</h1>
+        <p class="tagline" id="updated">Loading the latest warehouse build…</p>
+      </div>
+      <div class="masthead-actions">
+        <a class="link" href="index.html">Back to food</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap dash">
+    <p class="mode-note" id="sample-note" hidden>These numbers come from simulated sample data so the pipeline can be tested. Connect Supabase to see real usage.</p>
+
+    <section class="north-star" aria-labelledby="ns-label">
+      <p class="big" id="meals">–</p>
+      <div>
+        <h2 id="ns-label">meals saved from the trash</h2>
+        <p id="ns-sub" class="muted"></p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Meals saved each week</h2>
+      <p class="muted">Bars show meals saved. The line shows rescue rate, the share of posted portions that got claimed.</p>
+      <div class="chart"><canvas id="weekly" aria-label="Weekly meals saved and rescue rate" role="img"></canvas></div>
+    </section>
+
+    <section class="panel">
+      <h2>Daily active users</h2>
+      <div class="chart"><canvas id="daily" aria-label="Daily active users and new users" role="img"></canvas></div>
+    </section>
+
+    <section class="panel">
+      <h2>Claim funnel by button wording</h2>
+      <p class="muted" id="ab-summary"></p>
+      <div class="table-wrap"><table id="funnel"></table></div>
+    </section>
+
+    <section class="panel">
+      <h2>Weekly retention</h2>
+      <p class="muted">Share of each week's new users who came back in later weeks.</p>
+      <div class="table-wrap"><table id="retention" class="heat"></table></div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="config.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

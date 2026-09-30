@@ -1,0 +1,14 @@
+.dash { display: grid; gap: 1.5rem; padding-bottom: 4rem; }
+.muted { color: var(--muted); margin: 0; }
+.north-star { display: flex; align-items: baseline; gap: 1.25rem; flex-wrap: wrap; padding: .5rem 0 1rem; border-bottom: 6px solid var(--ink); }
+.north-star .big { margin: 0; font: 800 clamp(4rem, 14vw, 8.5rem)/.85 var(--display); letter-spacing: -0.04em; color: var(--basil); font-variant-numeric: tabular-nums; }
+.north-star h2 { margin: 0; font: 700 1.4rem/1.2 var(--display); }
+.panel { background: var(--surface); padding: 1.4rem; border-radius: 10px; }
+.panel h2 { margin: 0 0 .35rem; font: 700 1.25rem/1.2 var(--display); }
+.chart { position: relative; height: 280px; margin-top: 1rem; }
+.table-wrap { overflow-x: auto; margin-top: 1rem; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: right; padding: .5rem .75rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { font-weight: 700; font-size: .9rem; color: var(--muted); }
+.heat td[data-v] { background: color-mix(in srgb, var(--basil) calc(var(--v) * 100%), transparent); }
