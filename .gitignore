@@ -1,0 +1,12 @@
+# Warehouse build outputs (rebuilt by GitHub Actions)
+warehouse/warehouse.duckdb*
+warehouse/target/
+warehouse/logs/
+warehouse/dbt_packages/
+warehouse/data/raw/*
+!warehouse/data/raw/.gitkeep
+site/data/metrics.json
+__pycache__/
+.venv/
+.DS_Store
+warehouse/.user.yml
