@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: stg_events
+    columns:
+      - name: event_id
+        tests: [unique, not_null]
+      - name: user_id
+        tests: [not_null]
+      - name: event_name
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [page_view, post_viewed, claim_clicked, claim_completed, claim_failed, claim_abandoned,
+                         signup_completed, post_form_opened, post_form_cancelled, post_created, post_failed,
+                         filter_changed, load_failed]
+      - name: variant
+        tests:
+          - accepted_values:
+              arguments:
+                values: [A, B]
+
+  - name: stg_food_posts
+    columns:
+      - name: post_id
+        tests: [unique, not_null]
+      - name: portions
+        tests: [not_null]
+
+  - name: dim_users
+    description: One row per user with lifecycle milestones and A/B arm.
+    columns:
+      - name: user_id
+        tests: [unique, not_null]
+
+  - name: fct_food_posts
+    description: One row per post with claimed portions, meals saved, and rescue rate.
+    columns:
+      - name: post_id
+        tests: [unique, not_null]
+      - name: meals_saved
+        tests: [not_null]
+
+  - name: fct_claims
+    columns:
+      - name: claim_id
+        tests: [unique, not_null]
+      - name: post_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fct_food_posts')
+                field: post_id
+
+  - name: mart_daily_metrics
+    columns:
+      - name: date_day
+        tests: [unique, not_null]
