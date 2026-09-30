@@ -1,6 +1,3 @@
-# Extract data from Supabase, build and test the dbt warehouse, export dashboard
-# metrics, and deploy the site to GitHub Pages. Runs on every push to main,
-# every morning at 6:00 UTC, and on demand from the Actions tab.
 name: Pipeline and deploy
 
 on:
@@ -12,19 +9,10 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: warehouse
     steps:
       - uses: actions/checkout@v4
 
@@ -35,31 +23,27 @@ jobs:
           cache-dependency-path: warehouse/requirements.txt
 
       - name: Install dependencies
+        working-directory: warehouse
         run: pip install -r requirements.txt
 
       - name: Extract raw tables
+        working-directory: warehouse
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: python extract.py
 
       - name: Build models and run data quality tests
+        working-directory: warehouse
         run: dbt build --profiles-dir .
 
       - name: Export dashboard metrics
+        working-directory: warehouse
         run: python export_dashboard.py
 
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
-          path: site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy site --project-name=second-serving --branch=main
