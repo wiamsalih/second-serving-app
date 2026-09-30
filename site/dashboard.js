@@ -32,9 +32,9 @@
     data: {
       labels: d.weekly.map((w) => fmtWeek(w.week_start)),
       datasets: [
-        { type: "bar", label: "Meals saved", data: d.weekly.map((w) => w.meals_saved), backgroundColor: color("--basil"), yAxisID: "y" },
-        { type: "line", label: "Rescue rate", data: d.weekly.map((w) => w.rescue_rate), borderColor: color("--tomato"),
-          backgroundColor: color("--tomato"), yAxisID: "y1", tension: 0.3 }
+        { type: "bar", label: "Meals saved", data: d.weekly.map((w) => w.meals_saved), backgroundColor: color("--accent"), yAxisID: "y" },
+        { type: "line", label: "Rescue rate", data: d.weekly.map((w) => w.rescue_rate), borderColor: color("--ink"),
+          backgroundColor: color("--ink"), yAxisID: "y1", tension: 0.3 }
       ]
     },
     options: {
@@ -53,8 +53,8 @@
     data: {
       labels: d.daily.map((x) => fmtWeek(x.date_day)),
       datasets: [
-        { label: "Active users", data: d.daily.map((x) => x.active_users), borderColor: color("--basil"), backgroundColor: color("--basil"), tension: 0.25, pointRadius: 0 },
-        { label: "New users", data: d.daily.map((x) => x.new_users), borderColor: color("--butter"), backgroundColor: color("--butter"), tension: 0.25, pointRadius: 0 }
+        { label: "Active users", data: d.daily.map((x) => x.active_users), borderColor: color("--accent"), backgroundColor: color("--accent"), tension: 0.25, pointRadius: 0 },
+        { label: "New users", data: d.daily.map((x) => x.new_users), borderColor: color("--rose"), backgroundColor: color("--rose"), tension: 0.25, pointRadius: 0 }
       ]
     },
     options: { maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, interaction: { mode: "index", intersect: false } }

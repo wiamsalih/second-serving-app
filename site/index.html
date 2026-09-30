@@ -8,7 +8,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥡</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,8 +17,9 @@
   <header class="masthead">
     <div class="wrap masthead-inner">
       <div>
-        <h1 class="wordmark">Second Serving</h1>
-        <p class="tagline">Leftover event food at Cornell Tech, claimed before it's thrown out.</p>
+        <p class="eyebrow">Cornell Tech · Roosevelt Island</p>
+        <h1 class="wordmark" aria-label="Second Serving"><span class="typed" id="typed" aria-hidden="true">Second <em>serving?</em></span><span class="caret" aria-hidden="true"></span></h1>
+        <p class="tagline">Leftover event food on campus, claimed before it's thrown out.</p>
       </div>
       <div class="masthead-actions">
         <a class="link" href="dashboard.html">Metrics</a>
@@ -104,6 +105,8 @@
     </form>
   </dialog>
 
+  <footer class="wrap footer">Made at Cornell Tech, so good food finds a second plate.</footer>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
@@ -111,5 +114,6 @@
   <script src="store.js"></script>
   <script src="tracking.js"></script>
   <script src="app.js"></script>
+  <script src="typing.js"></script>
 </body>
 </html>
