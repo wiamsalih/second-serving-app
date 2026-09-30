@@ -53,7 +53,9 @@ COLUMNS = {
 
 def main() -> None:
     RAW.mkdir(parents=True, exist_ok=True)
-    url, key = os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_SERVICE_KEY")
+    # Strip stray whitespace/newlines that often sneak in when pasting secrets.
+    url = (os.environ.get("SUPABASE_URL") or "").strip().rstrip("/").removesuffix("/rest/v1")
+    key = (os.environ.get("SUPABASE_SERVICE_KEY") or "").strip()
     if not (url and key):
         print("No Supabase secrets found; generating SAMPLE data.")
         import generate_sample_data
