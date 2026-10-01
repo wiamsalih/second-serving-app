@@ -7,7 +7,7 @@ Organizers post leftover food with a location, portion count, and time window. S
 ## How it fits together
 
 ```
- Browser (GitHub Pages)            Supabase (Postgres)             GitHub Actions (daily)
+ Browser (Vercel)                  Supabase (Postgres)             GitHub Actions (daily)
  ┌──────────────────────┐   write  ┌──────────────────────┐  read  ┌─────────────────────────────┐
  │ site/index.html      │ ───────► │ food_posts           │ ─────► │ extract.py  → raw CSVs      │
  │  post, claim, filter │          │ claims               │        │ dbt build   → star schema    │
@@ -71,8 +71,8 @@ Then open `http://localhost:8000/dashboard.html`. It shows a banner while using 
 2. In the repo, go to **Settings → Secrets and variables → Actions** and add:
    - `SUPABASE_URL`: your project URL
    - `SUPABASE_SERVICE_KEY`: the service_role key. Keep this secret and never put it in `site/`.
-3. Go to **Settings → Pages** and set **Source** to **GitHub Actions**.
-4. Push a commit, or run the workflow from the **Actions** tab. Your site will be at `https://<your-username>.github.io/<repo-name>/`.
+   - `VERCEL_TOKEN`: a token from [vercel.com/account/tokens](https://vercel.com/account/tokens).
+3. Push a commit, or run the workflow from the **Actions** tab. The first run creates the `second-serving-app` project on Vercel, and your site will be at `https://second-serving-app.vercel.app` (or a similar URL shown in the Vercel dashboard).
 
 The pipeline then runs every morning at 6:00 UTC, so the dashboard updates daily.
 
