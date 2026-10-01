@@ -49,5 +49,6 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
+          VERCEL_TOKEN="$(printf '%s' "$VERCEL_TOKEN" | tr -d '[:space:]')"
           npx --yes vercel@latest link --yes --project second-serving-app --scope second-serving --token "$VERCEL_TOKEN"
           npx --yes vercel@latest deploy --prod --yes --scope second-serving --token "$VERCEL_TOKEN"
