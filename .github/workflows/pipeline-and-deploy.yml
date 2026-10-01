@@ -1,3 +1,6 @@
+# Extract data from Supabase, build and test the dbt warehouse, export dashboard
+# metrics, and deploy site/ to Vercel. Runs on every push to main, every morning
+# at 6:00 UTC, and on demand from the Actions tab.
 name: Pipeline and deploy
 
 on:
@@ -41,9 +44,10 @@ jobs:
         working-directory: warehouse
         run: python export_dashboard.py
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy site --project-name=second-serving-app --branch=main
+      - name: Deploy to Vercel
+        working-directory: site
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          npx --yes vercel@latest link --yes --project second-serving-app --scope second-serving --token "$VERCEL_TOKEN"
+          npx --yes vercel@latest deploy --prod --yes --scope second-serving --token "$VERCEL_TOKEN"
